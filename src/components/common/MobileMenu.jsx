@@ -1,4 +1,3 @@
-import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Paper from "@mui/material/Paper";
@@ -18,7 +17,7 @@ const MobileMenu = ({ menuOpen, toggleMenu, Icon }) => {
 
   return (
     <>
-      <button onClick={toggleMenu}>
+      <button type="button" aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"} aria-expanded={menuOpen} onClick={toggleMenu}>
         <Icon />
       </button>
       {menuOpen && (
@@ -26,8 +25,8 @@ const MobileMenu = ({ menuOpen, toggleMenu, Icon }) => {
           sx={{
             position: "absolute",
             top: "72px",
-            left: 191,
-            width: "55%",
+            right: 16,
+            width: "min(320px, calc(100vw - 32px))",
             zIndex: 10,
             backgroundColor: theme.background,
             color: theme.textPrimary,
@@ -77,10 +76,9 @@ const MobileMenu = ({ menuOpen, toggleMenu, Icon }) => {
 };
 
 MobileMenu.propTypes = {
-  scrolled: PropTypes.bool.isRequired,
   menuOpen: PropTypes.bool.isRequired,
   toggleMenu: PropTypes.func.isRequired,
   Icon: PropTypes.elementType.isRequired,
 };
 
-export default React.memo(MobileMenu);
+export default MobileMenu;

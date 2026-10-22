@@ -24,14 +24,13 @@ export const PrincipalArticle = () => {
       threshold: 0.25,
     });
 
-    if (videoRef.current) {
-      observer.observe(videoRef.current);
+    const videoElement = videoRef.current;
+    if (videoElement) {
+      observer.observe(videoElement);
     }
 
     return () => {
-      if (videoRef.current) {
-        observer.unobserve(videoRef.current);
-      }
+      observer.disconnect();
     };
   }, []);
 

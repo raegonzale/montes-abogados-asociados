@@ -1,30 +1,28 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import { useEffect } from "react";
-import { Home } from "./components/pages/home/Home";
-import { Soluciones } from "./components/pages/soluciones/Soluciones";
-import { Nosotros } from "./components/pages/nosotros/Nosotros";
-import { InsigthsB } from "./components/pages/insigths/InsigthsB";
+import { lazy, Suspense } from "react";
 import { ThemeProvider } from "./context/ThemeContext";
 import BlogsContextProvider from "./context/BlogsContext";
-import BlogDetail from "./components/pages/insigths/BlogDetail";
 import ServiceContextProvider from "./context/ServiceContext";
-import ServiceDetails from "./components/pages/soluciones/ServiceDetails";
-import ContactUs from "./components/pages/contact/ContactUs";
 import ScrollToTop from "./components/common/ScrollToTop";
 import FloatingButton from "./components/common/FloatingButton"
 
-function App() {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+const Home = lazy(() => import("./components/pages/home/Home").then(({ Home }) => ({ default: Home })));
+const Soluciones = lazy(() => import("./components/pages/soluciones/Soluciones").then(({ Soluciones }) => ({ default: Soluciones })));
+const Nosotros = lazy(() => import("./components/pages/nosotros/Nosotros").then(({ Nosotros }) => ({ default: Nosotros })));
+const InsigthsB = lazy(() => import("./components/pages/insigths/InsigthsB").then(({ InsigthsB }) => ({ default: InsigthsB })));
+const BlogDetail = lazy(() => import("./components/pages/insigths/BlogDetail"));
+const ServiceDetails = lazy(() => import("./components/pages/soluciones/ServiceDetails"));
+const ContactUs = lazy(() => import("./components/pages/contact/ContactUs"));
 
+function App() {
   return (
     <ThemeProvider>
       <ServiceContextProvider>
         <BlogsContextProvider>
           <Router>
             <ScrollToTop />
-            <Routes>
+            <Suspense fallback={<div role="status">Cargando...</div>}>
+              <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/soluciones" element={<Soluciones />} />
               <Route path="/soluciones/:serviceDataId" element={<ServiceDetails />} />
@@ -33,7 +31,8 @@ function App() {
               <Route path="/insigths" element={<InsigthsB />} />
               <Route path="/insigths/:dataBlogId" element={<BlogDetail />} />
               <Route path="*" element={<Navigate to="/" />} />
-            </Routes>
+              </Routes>
+            </Suspense>
             <FloatingButton/>
           </Router>
         </BlogsContextProvider>

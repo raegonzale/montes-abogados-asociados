@@ -1,37 +1,24 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { useParams } from "react-router-dom";
 import { ServiceContext } from "../../../context/ServiceContext";
-import { HeaderTwo } from "../../common/HeaderTwo";
+import { SiteLayout } from "../../common/SiteLayout";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
-import { Contact } from "../../common/Contact";
-import { Form } from "../../common/Form";
-import { Footer } from "../../common/Footer";
 import useTheme from "../../../constants/useTheme";
 
 const ServiceDetails = () => {
   const { serviceDataId } = useParams();
   const dataServices = useContext(ServiceContext);
-  const [serviceSelected, setServiceSelected] = useState(null);
+  const serviceSelected = dataServices.find((service) => service.id === Number(serviceDataId));
   const { theme } = useTheme();
-
-  useEffect(() => {
-    const foundService = dataServices.find(
-      (service) => service.id === parseInt(serviceDataId)
-    );
-    setServiceSelected(foundService);
-  }, [serviceDataId, dataServices]);
 
   if (!serviceSelected) {
     return <div>Servicio no encontrado</div>;
   }
 
   return (
-    <div
-      style={{ backgroundColor: theme.background, color: theme.textPrimary }}
-    >
-      <HeaderTwo />
-
+    <SiteLayout>
+      <div style={{ backgroundColor: theme.background, color: theme.textPrimary }}>
       <div className="mx-auto h-[900px] flex flex-col justify-center items-center pt-5 xl:flex xl:flex-row xl:justify-evenly xl:h-[600px] xl:max-w-[1280px] xl:px-24 ">
         <Box
           sx={{
@@ -67,10 +54,8 @@ const ServiceDetails = () => {
 
       </div>
 
-      <Contact />
-      <Form />
-      <Footer />
-    </div>
+      </div>
+    </SiteLayout>
   );
 };
 

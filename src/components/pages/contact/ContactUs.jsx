@@ -1,19 +1,12 @@
-import { HeaderTwo } from "../../common/HeaderTwo"
+import { SiteLayout } from "../../common/SiteLayout";
+import { PageTitle } from "../../common/PageTitle";
+import ContactInformation from "./ContactInformation";
 
-import { Footer } from "../../common/Footer"
-import { Form } from "../../common/Form"
-import TitleContact from "./TitleContact"
-import ContactInformation from "./ContactInformation"
+const ContactUs = () => (
+  <SiteLayout contactBanner={false}>
+    <PageTitle title="Contáctanos" size="contact" />
+    <ContactInformation />
+  </SiteLayout>
+);
 
-const ContactUs = () => {
-  return (
-    <div>
-    <HeaderTwo/>
-    <TitleContact/>
-    <ContactInformation/>
-    <Form/>
-    <Footer/>
-    </div>
-  )
-}
-export default ContactUs
+export default ContactUs;

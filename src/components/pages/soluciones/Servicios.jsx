@@ -49,9 +49,8 @@ export const Servicios = () => {
   };
 
   return (
-    <div style={{ backgroundColor: theme.background, color:theme.textPrimary,}} 
-         className="relative mx-auto w-full flex flex-col h-[1150px] px-6 xl:max-w-[1280px] xl:pt-10 xl:flex xl:flex-row xl:justify-start xl:h-[710px] xl:px-24"
-        >
+    <section style={{ backgroundColor: theme.background, color: theme.textPrimary }} className="w-full">
+      <div className="relative mx-auto flex w-full flex-col px-6 pb-12 xl:max-w-[1280px] xl:flex-row xl:justify-start xl:px-24 xl:py-10">
       <div className="absolute xl:w-[400px] xl:h-[400px] xl:left-[10px]">
         <Animacion />
       </div>
@@ -124,6 +123,7 @@ export const Servicios = () => {
           )
         )}
       </div>
-    </div>
+      </div>
+    </section>
   );
 };

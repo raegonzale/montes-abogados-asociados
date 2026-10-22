@@ -1,28 +1,16 @@
-import { HeaderTwo } from "../../common/HeaderTwo"
-import { History} from "../../pages/nosotros/History"
-import { Contact } from "../../common/Contact"
-import { Footer } from "../../common/Footer"
-import { Profile} from "../../pages/nosotros/Profile"
-import { Form } from "../../common/Form"
-import { Team } from "./Team"
-import { SliderTwo } from "../../pages/nosotros/SliderTwo"
-import TitleAboutUs from "./TitleAboutUs"
+import { SiteLayout } from "../../common/SiteLayout";
+import { PageTitle } from "../../common/PageTitle";
+import { History } from "./History";
+import { Team } from "./Team";
+import { SliderTwo } from "./SliderTwo";
+import { Profile } from "./Profile";
 
-
-export const Nosotros = () => {
-  return (
-    <div>
-
-     <HeaderTwo/>
-     <TitleAboutUs/>
-     <History/>
-     <Team/>
-     <SliderTwo/>
-     <Profile/>
-     <Contact/>
-     <Form/>
-     <Footer/>
-     </div>
-  )
-}
-
+export const Nosotros = () => (
+  <SiteLayout>
+    <PageTitle title="Nosotros" />
+    <History />
+    <Team />
+    <SliderTwo />
+    <Profile />
+  </SiteLayout>
+);

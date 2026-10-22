@@ -1,21 +1,10 @@
-import { HeaderTwo } from "../../common/HeaderTwo"
-import { Servicios } from "../soluciones/Servicios"
-import { Contact } from "../../common/Contact"
-import { Footer } from "../../common/Footer"
-import { TitleSolutions } from "./TitleSolutions"
-import { Form } from "../../common/Form"
+import { SiteLayout } from "../../common/SiteLayout";
+import { PageTitle } from "../../common/PageTitle";
+import { Servicios } from "./Servicios";
 
-export const Soluciones = () => {
-  return (
-    <div className="mx-auto items-center w-full">
-      
-      <HeaderTwo/>
-      <TitleSolutions/>
-      <Servicios/>
-      <Contact/>
-      <Form/>
-      <Footer/>
-    </div>
-  )
-}
-
+export const Soluciones = () => (
+  <SiteLayout>
+    <PageTitle title="Soluciones" size="solutions" />
+    <Servicios />
+  </SiteLayout>
+);

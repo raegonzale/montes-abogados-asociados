@@ -2,10 +2,12 @@ import { Grid, TextField, Button } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useState } from "react";
 import useTheme from "../../constants/useTheme";
 
 export const Form = () => {
   const { theme } = useTheme();
+  const [submitMessage, setSubmitMessage] = useState("");
 
   const formik = useFormik({
     initialValues: {
@@ -17,33 +19,29 @@ export const Form = () => {
     validationSchema: Yup.object({
       name: Yup.string().required("Debes ingresar el nombre"),
       lastName: Yup.string().required("Debes ingresar tus apellidos"),
-      email: Yup.string().required("Debes ingresar tu email"),
+      email: Yup.string().email("Ingresa un correo válido").required("Debes ingresar tu email"),
       number: Yup.string()
         .required("Debes ingresar tu numero celular")
         .matches(/^[0-9]{10}$/, {
           message: "Debes ingresar un numero de 10 digitos (301+1234567)",
         }),
     }),
-    onSubmit: (data) => {
-      console.log(data);
-      fetch("https://getform.io/f/warkerlb", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      })
-        .then((response) => {
-          if (response.ok) {
-            console.log("Formulario enviado exitosamente!");
-            formik.resetForm();
-          } else {
-            console.error("Error enviando el formulario");
-          }
-        })
-        .catch((error) => {
-          console.error("Error:", error);
+    onSubmit: async (data, { resetForm, setSubmitting }) => {
+      setSubmitMessage("");
+      try {
+        const response = await fetch("https://getform.io/f/warkerlb", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
         });
+        if (!response.ok) throw new Error("No se pudo enviar el formulario");
+        resetForm();
+        setSubmitMessage("Tu información se envió correctamente.");
+      } catch {
+        setSubmitMessage("No se pudo enviar el formulario. Inténtalo de nuevo.");
+      } finally {
+        setSubmitting(false);
+      }
     },
   });
 
@@ -53,13 +51,13 @@ export const Form = () => {
         backgroundColor: theme.background,
         color: theme.textPrimary,
       }}
-      className="w-full h-[400px] mx-auto px-6 flex items-center justify-center xl:h-[300px]"
+      className="mx-auto flex min-h-[400px] w-full items-center justify-center px-6 py-10 xl:min-h-[300px]"
     >
       <div
         style={{
           backgroundColor: theme.background,
         }}
-        className="h-[200px] mx-auto px-6 flex items-center xl:w-[800px]"
+        className="mx-auto w-full px-6 xl:w-[800px]"
       >
         <form action="" onSubmit={formik.handleSubmit}>
           <Grid
@@ -77,8 +75,9 @@ export const Form = () => {
                 type="text"
                 onChange={formik.handleChange}
                 value={formik.values.name}
-                error={Boolean(formik.errors.name)}
-                helperText={formik.errors.name}
+                error={Boolean(formik.touched.name && formik.errors.name)}
+                helperText={formik.touched.name && formik.errors.name}
+                onBlur={formik.handleBlur}
                 style={{
                   backgroundColor: theme.form,
                 }}
@@ -104,8 +103,9 @@ export const Form = () => {
                 type="text"
                 onChange={formik.handleChange}
                 value={formik.values.lastName}
-                error={Boolean(formik.errors.lastName)}
-                helperText={formik.errors.lastName}
+                error={Boolean(formik.touched.lastName && formik.errors.lastName)}
+                helperText={formik.touched.lastName && formik.errors.lastName}
+                onBlur={formik.handleBlur}
                 style={{
                   backgroundColor: theme.form,
                 }}
@@ -131,8 +131,9 @@ export const Form = () => {
                 type="email"
                 onChange={formik.handleChange}
                 value={formik.values.email}
-                error={Boolean(formik.errors.email)}
-                helperText={formik.errors.email}
+                error={Boolean(formik.touched.email && formik.errors.email)}
+                helperText={formik.touched.email && formik.errors.email}
+                onBlur={formik.handleBlur}
                 style={{
                   backgroundColor: theme.form,
                 }}
@@ -158,8 +159,9 @@ export const Form = () => {
                 type="string"
                 onChange={formik.handleChange}
                 value={formik.values.number}
-                error={Boolean(formik.errors.number)}
-                helperText={formik.errors.number}
+                error={Boolean(formik.touched.number && formik.errors.number)}
+                helperText={formik.touched.number && formik.errors.number}
+                onBlur={formik.handleBlur}
                 style={{
                   backgroundColor: theme.form,
                 }}
@@ -178,6 +180,7 @@ export const Form = () => {
             <Grid item xs={6} lg={6}>
               <Button
                 type="submit"
+                disabled={formik.isSubmitting}
                 fullWidth
                 variant="contained"
                 aria-label="Enviar formulario"
@@ -187,6 +190,7 @@ export const Form = () => {
               </Button>
             </Grid>
           </Grid>
+          {submitMessage && <p role="status" className="pt-3 text-center">{submitMessage}</p>}
         </form>
       </div>
     </div>

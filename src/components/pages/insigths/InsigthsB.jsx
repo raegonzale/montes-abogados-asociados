@@ -1,22 +1,10 @@
-import { HeaderTwo } from "../../common/HeaderTwo"
-import { Contact } from "../../common/Contact"
-import { Footer } from "../../common/Footer"
-import { Blog } from "../../../components/pages/insigths/Blog"
-import { Form } from "../../common/Form"
-import TitleInsigths from "./TitleInsigths"
+import { SiteLayout } from "../../common/SiteLayout";
+import { PageTitle } from "../../common/PageTitle";
+import { Blog } from "./Blog";
 
-
-
-export const InsigthsB = () => {
-  return (
-    <div>
-     <HeaderTwo/>
-     <TitleInsigths/> 
-     <Blog/>
-     <Contact/>
-     <Form/>
-     <Footer/>
-    </div>
-  )
-}
-
+export const InsigthsB = () => (
+  <SiteLayout>
+    <PageTitle title="Blog" />
+    <Blog />
+  </SiteLayout>
+);

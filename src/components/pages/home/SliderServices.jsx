@@ -1,4 +1,4 @@
-import { useContext, useState, memo, useCallback } from "react";
+import { useContext, useState, useCallback } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -78,4 +78,4 @@ const SliderServices = () => {
   );
 };
 
-export default memo(SliderServices);
+export default SliderServices;

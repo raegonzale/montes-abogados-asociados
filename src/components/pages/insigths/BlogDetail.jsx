@@ -1,24 +1,14 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { useParams } from "react-router-dom";
 import { BlogsContext } from "../../../context/BlogsContext";
-import { HeaderTwo } from "../../common/HeaderTwo";
-import { Contact } from "../../common/Contact";
-import { Form } from "../../common/Form";
-import { Footer } from "../../common/Footer";
+import { SiteLayout } from "../../common/SiteLayout";
 import useTheme from '../../../constants/useTheme';
 
 const BlogDetail = () => {
   const { dataBlogId } = useParams();
   const dataBlogs = useContext(BlogsContext);
-  const [blogSelected, setBlogSelected] = useState(null);
+  const blogSelected = dataBlogs.find((blog) => blog.id === Number(dataBlogId));
   const { theme } = useTheme();
-
-  useEffect(() => {
-    const foundBlog = dataBlogs.find(
-      (blog) => blog.id === parseInt(dataBlogId)
-    );
-    setBlogSelected(foundBlog);
-  }, [dataBlogId, dataBlogs]);
 
   if (!blogSelected) {
     return <div>Blog no encontrado</div>;
@@ -26,9 +16,7 @@ const BlogDetail = () => {
 
   
   return (
-    <div>
-      <HeaderTwo />
-
+    <SiteLayout>
       <div style={{ background: theme.background, color:theme.textPrimary }} className="h-auto pt-24 flex flex-col xl:px-0">
         <div className="flex flex-col items-center xl:justify-evenly xl:flex xl:flex-row">
           <img src={blogSelected.img} alt={blogSelected.title} />
@@ -52,11 +40,8 @@ const BlogDetail = () => {
           </div>
         </div>
 
-        <Contact />
-        <Form />
-        <Footer />
       </div>
-    </div>
+    </SiteLayout>
   );
 };
 
