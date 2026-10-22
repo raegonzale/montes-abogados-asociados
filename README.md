@@ -21,16 +21,18 @@ Sitio web corporativo de Montes Abogados Asociados. Presenta las áreas de servi
 - Framer Motion, react-parallax y Swiper
 - Formik y Yup para el formulario
 
-## Ejecutar en local
+## Cómo ejecutar el código
 
-Se necesita Node.js y npm. Desde la raíz del repositorio:
+Se necesita Node.js y npm. En una terminal, entra a la carpeta del proyecto, instala las dependencias e inicia Vite:
 
 ```bash
+git clone https://github.com/raegonzale/montes-abogados-asociados.git
+cd montes-abogados-asociados
 npm ci
 npm run dev
 ```
 
-Vite muestra la dirección local al iniciar; por defecto es `http://localhost:5173/`. En PowerShell, si la política de ejecución bloquea `npm.ps1`, usa `npm.cmd ci` y `npm.cmd run dev`.
+Abre la dirección que muestra Vite; por defecto es `http://localhost:5173/`. Para detener el servidor, presiona `Ctrl+C` en la terminal. En PowerShell, si la política de ejecución bloquea `npm.ps1`, usa `npm.cmd ci` y `npm.cmd run dev`.
 
 Comandos disponibles:
 
