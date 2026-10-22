@@ -83,6 +83,8 @@ Para actualizar el contenido:
 
 ## Antes de publicar
 
-El repositorio contiene texto de ejemplo (`Lorem ipsum`) en las descripciones de servicios, la historia y los artículos. Los perfiles y sus enlaces, las cifras de la portada y los datos de contacto deben revisarse con la firma antes de publicar contenido definitivo.
+**Los textos y las imágenes actuales son de demostración.** Se deben crear, revisar y aprobar los textos e imágenes definitivos de cada sección antes de publicar el sitio. Esto incluye las descripciones de servicios, la historia de la firma, los artículos, los perfiles del equipo y sus fotografías. El repositorio todavía contiene texto de ejemplo (`Lorem ipsum`) en varias de esas secciones.
+
+También deben verificarse con la firma los enlaces de los perfiles, las cifras de la portada y los datos de contacto.
 
 El formulario envía datos a un endpoint externo de Getform definido en el código. Comprueba que pertenezca a la cuenta correcta y realiza una prueba de envío antes de usarlo en producción. El sitio utiliza `BrowserRouter`, por lo que el alojamiento debe servir `index.html` para las rutas internas al cargarlas directamente.
